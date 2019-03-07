@@ -31,17 +31,11 @@ class Lesson2 {
     static String initials(String fullName) {
 
         String[] name = fullName.split(" ");
-        short i = 0;
-        String shortName = "";
 
-        while (i < name.length) {
-           shortName = shortName + name[i].charAt(0) + ".";
-           i++;
-        }
+        String shortName = name[0].charAt(0) + "." + name[1].charAt(0) + "." + name[2].charAt(0) + ".";
 
         return shortName.toUpperCase();
 
         }
-
 
     }
