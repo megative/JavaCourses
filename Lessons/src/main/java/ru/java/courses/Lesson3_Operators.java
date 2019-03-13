@@ -42,10 +42,7 @@ public class Lesson3_Operators {
     public static boolean task2(int i) {
 
         --i;
-        int checker = (i < 30 || i > 100) ? (i += 1000) : ((i > 0 && i % 2 == 0) ? (i -= 1000) : (i));
-        boolean answer = (checker < 0) ? (false) : (true);
-
-        return answer;
+        return ((((i < 30 || i > 100) ? (i += 1000) : ((i > 0 && i % 2 == 0) ? (i -= 1000) : (i))) < 0) ? (false) : (true));
     }
 
 
