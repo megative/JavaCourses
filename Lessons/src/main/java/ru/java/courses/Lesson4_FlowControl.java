@@ -69,7 +69,7 @@ public class Lesson4_FlowControl {
                break;
 
            case '-':
-               res = k - i;
+               res = i - k;
                break;
 
            case '*':
