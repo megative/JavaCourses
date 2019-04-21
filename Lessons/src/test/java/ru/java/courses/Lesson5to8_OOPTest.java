@@ -1,23 +1,19 @@
 package ru.java.courses;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.java.courses.sport.Athlete;
-import ru.java.courses.sport.Coach;
-import ru.java.courses.sport.team.Team;
+import ru.java.courses.sport.team.football.Coach;
 import ru.java.courses.sport.team.football.FootballPlayer;
 import ru.java.courses.sport.team.football.FootballTeam;
 import ru.java.courses.sport.team.football.PlayerRole;
 
 public class Lesson5to8_OOPTest {
 
-    private static Team team;
+    private static FootballTeam team;
 
     @BeforeAll
     public static void setup() {
@@ -31,7 +27,9 @@ public class Lesson5to8_OOPTest {
         FootballPlayer winger = new FootballPlayer("Сергей Забивалов", PlayerRole.WINGER);
         FootballPlayer defender1 = new FootballPlayer("Николай Башкоймяч", PlayerRole.DEFENDER);
 
-        team.addPlayers(goalkeeper, winger, defender1);
+        team.addPlayer(goalkeeper);
+        team.addPlayer(winger);
+        team.addPlayer(defender1);
 
         FootballPlayer defender2 = new FootballPlayer("Евгений Забейгол", PlayerRole.DEFENDER);
         team.addPlayer(defender2);
@@ -87,7 +85,7 @@ public class Lesson5to8_OOPTest {
 
     @Test
     public void inheritanceTest() {
-        assertTrue(team.getPlayers().get(0) instanceof Athlete, "Игроки - атлеты!");
+        assertTrue(team.getPlayers().get(0) instanceof FootballPlayer, "Игроки - атлеты!");
         assertTrue(PlayerRole.class.isEnum(), "Роли игроков должны быть перечисление");
     }
 
@@ -115,7 +113,7 @@ public class Lesson5to8_OOPTest {
         } catch (Exception ignore) {
         }
 
-        assertTrue(team.getMaxPlayersCount() <= 20, "В команде не может быть больше 20 игроков");
+        assertTrue(team.getPlayersCount() <= 20, "В команде не может быть больше 20 игроков");
     }
 
     @Test
