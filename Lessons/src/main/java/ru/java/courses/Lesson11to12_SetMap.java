@@ -1,60 +1,105 @@
 package ru.java.courses;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
-import javax.swing.tree.TreeCellEditor;
 
 public class Lesson11to12_SetMap {
 
-    public static class User {
+    public static class User implements Comparable<User> {
 
         private String name;
         private int age;
         private String phone;
 
         public User(String name, int age) {
+
             this.name = name;
             this.age = age;
+
         }
 
         public User(String phone) {
+
             this.phone = phone;
+
         }
 
         public String getName() {
+
             return name;
+
         }
 
         public void setName(String name) {
+
             this.name = name;
+
         }
 
         public int getAge() {
+
             return age;
+
         }
 
         public void setAge(int age) {
+
             this.age = age;
+
         }
 
         public String getPhone() {
+
             return phone;
+
         }
 
         public void setPhone(String phone) {
+
             this.phone = phone;
+
         }
+
+        @Override
+        public String toString() {
+
+            return "User: " +
+                    "name = '" + name + '\'' +
+                    ", age = " + age +
+                    ", phone = '" + phone + '\'' +
+                    '}';
+
+        }
+
+
+
+        @Override
+        public boolean equals(Object o) {
+
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return age == user.age &&
+                    Objects.equals(name, user.name) &&
+                    Objects.equals(phone, user.phone);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(name, age, phone);
+        }
+
+        @Override
+        public int compareTo(User o) {
+            if (name.equals(o.name)) {
+                return Integer.compare(age,o.age);
+            }
+            return name.compareTo(o.name);
+        }
+
+
     }
 
     /**
@@ -65,10 +110,10 @@ public class Lesson11to12_SetMap {
      * 4. Возвращаем последнего пользователя
      */
     public static User task1(Collection<User> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
 
-        return null;
+        TreeSet<User> treeSet = new TreeSet<>(source);
+        return treeSet.last();
+
     }
 
     /**
@@ -79,10 +124,17 @@ public class Lesson11to12_SetMap {
      * 4. Вернуть количество записей в справочнике
      */
     public static int task2(Collection<User> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
 
-       return 0;
+        Map<String, String> hashMap = new HashMap<>();
+
+        for (User user : source) {
+
+            hashMap.put(user.getPhone(), user.toString());
+
+        }
+
+        return hashMap.size();
+
     }
 
 
@@ -97,10 +149,22 @@ public class Lesson11to12_SetMap {
      * Нумерация полок начинается с единицы!
      */
     public static Map task3(Collection<String> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
 
-        return null;
+        Integer totalShelves = 5;
+        List<String> booksList = source.stream().sorted().collect(Collectors.toList());
+        Map<Integer, List<String>> hashMap = new HashMap<>();
+
+        Integer shelveSize = booksList.size() / totalShelves;
+
+        for (int shellNumber = 1; shellNumber < totalShelves; shellNumber++){
+
+            hashMap.put(shellNumber, booksList.subList((shellNumber - 1) * shelveSize, shellNumber * shelveSize));
+        }
+
+        hashMap.put(totalShelves, booksList.subList((totalShelves - 1) * shelveSize, booksList.size()));
+
+        return hashMap;
+
     }
 
 
@@ -110,8 +174,16 @@ public class Lesson11to12_SetMap {
      * 5. Вернуть справочник [название книги -> номер полки]
      */
     public static Map task4(Map<Integer, String> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
-        return null;
+
+        Map<String, Integer> hashMap = new HashMap<>();
+
+        for (Entry<Integer, String> entry : source.entrySet()) {
+
+            hashMap.put(entry.getValue(),entry.getKey());
+
+        }
+
+        return hashMap;
     }
+
 }
